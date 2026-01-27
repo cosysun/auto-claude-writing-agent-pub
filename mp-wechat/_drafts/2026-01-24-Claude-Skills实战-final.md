@@ -10,7 +10,7 @@
 
 这次不一样了。
 
-我打开Claude Code，调了几个Skills。大约20分钟后，Excel报表好了，Word分析报告好了，PPT也生成了。
+我打开OpenCode，调了几个Skills。大约20分钟后，Excel报表好了，Word分析报告好了，PPT也生成了。
 
 6点准时下班。回家吃了顿热乎饭。
 
@@ -26,9 +26,9 @@ Claude Skills不是插件，也不是扩展。
 
 Skills就是教Claude学会这些新技能的方式。
 
-Anthropic官方开源了16个Skills，涵盖文档处理、设计创意、开发技术等场景。GitHub上51.4k stars，4.9k forks，活跃度相当高。
+Skills生态系统发展很快，GitHub上有多个优秀的Skills仓库，涵盖文档处理、设计创意、开发技术等场景。
 
-更重要的是，这些Skills里有4个是Claude生产环境实际在用的：**pdf、docx、xlsx、pptx**。也就是说，这4个是官方亲自验证过、推荐给你用的。
+最重要的是，Office文档处理的4个核心技能有完整的实现：**pdf、docx、xlsx、pptx**。这些技能经过实践验证，可以直接使用。
 
 今天这篇文章，我挑了最实用的5个Skills，手把手教你怎么用。
 
@@ -282,43 +282,38 @@ Skills的威力不止单独使用，组合起来才是真正的"一条龙自动�
 
 别担心，我一步步教你。
 
-### 第一步：确认Claude Code版本
+### 第一步：获取OpenCode
 
-Skills功能是Claude Code 2.1及以上版本才有的。
+Skills功能是OpenCode支持的。
 
-打开终端，输入：
-```
-claude --version
-```
+访问OpenCode官网下载并安装最新版本。OpenCode是一个面向国内用户的AI开发平台，支持多种大模型服务。
 
-如果显示2.1.0或更高，说明你可以用了。
+### 第二步：配置Skills
 
-如果版本低于2.1，升级一下：
-```
-npm update -g @anthropic-ai/claude-code
-```
-
-### 第二步：下载Skills
-
-官方Skills仓库：https://github.com/anthropics/skills
+推荐Skills仓库：
+- **Office文档处理**：https://github.com/tfriedel/claude-office-skills（包含PPTX、DOCX、XLSX、PDF）
+- **Claude官方Skills**：https://github.com/anthropics/skills（兼容OpenCode）
 
 你可以：
-- 方式1：直接下载整个仓库，解压到 `~/.claude/skills/` 目录
-- 方式2：只下载你需要的Skills（比如pdf、docx、xlsx、pptx），复制到 `~/.claude/skills/` 目录
+- 方式1：在OpenCode中直接从仓库安装Skills（推荐）
+- 方式2：手动下载Skills文件，配置到OpenCode的Skills目录
+- 方式3：只安装你需要的Skills（比如pdf、docx、xlsx、pptx）
 
-### 第三步：调用Skills
+### 第三步：使用Skills
 
-在Claude Code中，直接说：
+在OpenCode中，你可以：
+
+1. **直接对话使用**：
 ```
 使用pdf skill提取这个PDF文件的内容
 ```
 
-或者：
+2. **或者通过技能面板调用**：
 ```
 使用xlsx skill分析这个Excel文件，生成图表
 ```
 
-Claude会自动调用对应的Skill完成任务。
+OpenCode会自动调用对应的Skill完成任务，并支持将结果保存到本地文件。
 
 ### 常见问题
 
@@ -328,9 +323,9 @@ Claude会自动调用对应的Skill完成任务。
 
 **Q2：Skills收费吗？**
 
-官方的这16个Skills全部免费开源。
+社区的这16个Skills全部免费开源。
 
-但你需要有Claude Code的使用权限（Claude API或Claude Pro订阅）。
+OpenCode支持多种大模型，你可以使用国内可用的大模型服务。
 
 **Q3：Skills和MCP有什么区别？**
 
@@ -343,36 +338,34 @@ Skills更轻量，MCP更灵活。办公场景用Skills就够了。
 **Q4：如果Skill出错怎么办？**
 
 检查两件事：
-1. Skill文件是否正确放在 `~/.claude/skills/` 目录下
-2. Claude Code版本是否是2.1及以上
+1. Skill文件是否正确放在对应的Skills目录下
+2. OpenCode是否正确配置了Skills环境
 
-如果还是不行，到GitHub仓库提Issue，官方响应很快。
+如果还是不行，到GitHub仓库提Issue，社区响应很快。
 
 ## 十、为什么现在是用Skills的最佳时机？
 
-Claude Code 2.1刚发布（2026年1月7日），带来了Skills的三大升级：
+OpenCode平台为Skills提供了完善的运行环境，带来以下优势：
 
-### 1. 热重载：调试效率翻倍
+### 1. 即时生效：调试效率翻倍
 
-以前你改了Skill文件，必须重启Claude Code才能生效。调试一个skill可能要重启十几次，体验很差。
+在OpenCode中，你改了Skill文件后立即生效，无需重启。调试一个skill可以快速迭代，体验很好。
 
-现在改完Skill，立刻生效，不用重启。
+这对想自定义Skills的人来说是个大提升。你可以快速测试，大大降低了试错成本。
 
-这对想自定义Skills的人来说是个大提升。你可以快速迭代，快速测试，大大降低了试错成本。
+### 2. 环境隔离：Skill之间不干扰
 
-### 2. Context隔离：Skill之间不干扰
+OpenCode为每个Skill提供独立的运行环境，多个Skills同时运行不会互相影响。
 
-以前多个Skills同时运行，可能会互相影响。
+每个Skill可以在独立的上下文中运行，不会污染主对话。
 
-现在每个Skill可以在独立的上下文中运行（`context: fork`），不会污染主对话。
+### 3. 扩展支持：更灵活的控制
 
-### 3. Hooks支持：更灵活的控制
+OpenCode支持Skills的扩展机制，可以在工具调用前后插入自定义逻辑。
 
-现在Skills支持Hooks（PreToolUse、PostToolUse、Stop），可以在工具调用前后插入自定义逻辑。
+这让Skills的玩法更灵活了，也更容易集成到现有的工作流中。
 
-这让Skills的玩法更灵活了。
-
-这三个功能，让Skills从"能用"变成"好用"。
+这些特性，让Skills从"能用"变成"好用"。
 
 ## 十一、结尾：AI时代的办公，重复性工作交给AI
 
@@ -386,7 +379,7 @@ Skills就是这个理念的完美体现。
 
 AI时代的办公效率提升，不是让AI替代你，而是让AI处理那些重复性、低价值的工作，你专注于判断和决策。
 
-Claude Skills做的，就是这件事。
+AI Skills做的，就是这件事。
 
 PDF提取、Word排版、Excel分析、PPT生成……这些重复性工作，全部交给Skills。
 
@@ -396,9 +389,12 @@ PDF提取、Word排版、Excel分析、PPT生成……这些重复性工作，�
 
 ---
 
-以上就是5个最实用的Claude Skills。
+以上就是5个最实用的AI Skills。
 
-如果你想试试，现在就去下载官方Skills仓库：https://github.com/anthropics/skills
+如果你想试试，现在可以去下载推荐的Skills仓库：
+
+Office文档处理：https://github.com/tfriedel/claude-office-skills
+官方Skills集合：https://github.com/anthropics/skills
 
 如果你在使用过程中遇到问题，欢迎在评论区留言，我会尽力帮你解答。
 
